@@ -32,20 +32,7 @@ jobs:
     runs-on: ubuntu-22.04
     strategy:
       matrix:
-        include:
-        - python-version: "3.8"
-          flask-version: "2.3.3"
-          werkzeug-version: "2.3.7"
-        - python-version: "3.9"
-          flask-version: "2.3.3"
-          werkzeug-version: "2.3.7"
-        - python-version: "3.10"
-          flask-version: "2.3.3"
-          werkzeug-version: "2.3.7"
-        - python-version: "3.11"
-          flask-version: "3.0.0"  # Versão mais nova para Python 3.11
-          werkzeug-version: "3.0.1"
-        # python-version: ["3.7", "3.8", "3.9", "3.10", "3.11"]
+        python-version: ["3.7", "3.8", "3.9", "3.10", "3.11"]
 
     steps:
       - uses: actions/checkout@v2

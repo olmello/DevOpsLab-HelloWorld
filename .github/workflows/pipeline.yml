@@ -68,7 +68,7 @@ jobs:
           # ID do projeto no Vercel
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
           # Opcional: ID da organização
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          # vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           # Comando de deploy (pode ser 'production' ou 'preview')
           vercel-args: '--prod'
           # Ambiente de deploy

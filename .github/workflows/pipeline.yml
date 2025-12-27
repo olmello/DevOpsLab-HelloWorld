@@ -3,15 +3,14 @@ name: CI - Lint / Tests / Deploy
 on: [push]
 
 jobs:
-
   lint:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Set up Python 3.9
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: 3.9
 
@@ -29,16 +28,16 @@ jobs:
 
   tests:
     needs: lint
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         python-version: ["3.7", "3.8", "3.9", "3.10", "3.11"]
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
 
@@ -48,26 +47,28 @@ jobs:
           pip install flake8 pytest
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-      - name: Integrations Test
+      - name: Test
         run: | 
           python test.py
 
-
-  deploy:
+  deploy-vercel:
     needs: tests
-    runs-on: ubuntu-20.04
-
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'  # Só deploy na branch main
+    
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Set up Python 3.9
-        uses: actions/setup-python@v2
+      - uses: actions/checkout@v3
+      
+      - name: Deploy to Vercel
+        uses: amondnet/vercel-action@v20
         with:
-          python-version: 3.9
-
-      - name: deploy into heroku
-        uses: akhileshns/heroku-deploy@v3.12.12
-        with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
-          heroku_email: ${{secrets.HEROKU_USER_EMAIL}}
+          # Token do Vercel (adicionar em secrets do GitHub)
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          # ID do projeto no Vercel
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          # Opcional: ID da organização
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          # Comando de deploy (pode ser 'production' ou 'preview')
+          vercel-args: '--prod'
+          # Ambiente de deploy
+          working-directory: ./

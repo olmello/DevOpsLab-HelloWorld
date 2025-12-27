@@ -1,14 +1,10 @@
 name: CI - Lint / Tests / Deploy
 
-on:
-  push:
-    branches: [ main, develop ]
-  pull_request:
-    branches: [ main ]
+on: [push]
 
 jobs:
   lint:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
@@ -32,9 +28,8 @@ jobs:
 
   tests:
     needs: lint
-    runs-on: ubuntu-20.04  # MANTENHA ubuntu-20.04 AQUI
+    runs-on: ubuntu-latest
     strategy:
-      fail-fast: false  # Isso permite que outros jobs continuem mesmo se um falhar
       matrix:
         python-version: ["3.8", "3.9", "3.10", "3.11"]
 
@@ -58,7 +53,7 @@ jobs:
 
   deploy-vercel:
     needs: tests
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'  # Só deploy na branch main
     
     steps:

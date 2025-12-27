@@ -1,11 +1,6 @@
 name: CI - Lint / Tests / Deploy
 
-# TRIGGER CORRETO para push e pull requests
-on:
-  push:
-    branches: [ main, develop ]
-  pull_request:
-    branches: [ main ]
+on: [push]
 
 jobs:
   lint:

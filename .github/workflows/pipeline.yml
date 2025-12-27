@@ -3,6 +3,7 @@ name: CI - Lint / Tests / Deploy
 on: [push]
 
 jobs:
+
   lint:
     runs-on: ubuntu-22.04
 

@@ -70,6 +70,6 @@ jobs:
           # Opcional: ID da organização
           # vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           # Comando de deploy (pode ser 'production' ou 'preview')
-          vercel-args: '--prod'
+          vercel-args: '--prod --yes'
           # Ambiente de deploy
           working-directory: ./

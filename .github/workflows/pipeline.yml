@@ -32,7 +32,7 @@ jobs:
     runs-on: ubuntu-22.04
     strategy:
       matrix:
-      include:
+        include:
           # Python 3.7 precisa de versões mais antigas
           - python-version: "3.7"
             flask-version: "2.1.3"     # Última versão compatível com Python 3.7
@@ -60,7 +60,7 @@ jobs:
             werkzeug-version: "3.0.1"
             runner: "ubuntu-latest"
         # python-version: ["3.7", "3.8", "3.9", "3.10", "3.11"]
-      # runs-on: ${{ matrix.runner }}
+        runs-on: ${{ matrix.runner }}
 
     steps:
       - uses: actions/checkout@v2

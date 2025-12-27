@@ -52,7 +52,6 @@ jobs:
         run: | 
           python test.py
 
-
   deploy:
     needs: tests
     runs-on: ubuntu-20.04

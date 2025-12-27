@@ -1,6 +1,11 @@
 name: CI - Lint / Tests / Deploy
 
-on: [push]
+# TRIGGER CORRETO para push e pull requests
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   lint:
@@ -53,16 +58,11 @@ jobs:
 
   deploy-vercel:
     needs: tests
-    runs-on: ubuntu-20.04  # Mantendo ubuntu-20.04 para consistência
+    runs-on: ubuntu-20.04
     if: github.ref == 'refs/heads/main'  # Só deploy na branch main
     
     steps:
       - uses: actions/checkout@v3
-      
-      - name: Set up Python 3.9
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.9
       
       - name: Deploy to Vercel
         uses: amondnet/vercel-action@v20
